@@ -1,0 +1,15 @@
+{
+  "targets": [
+    {
+      "name": "サンプル商品A",
+      "url": "https://example.com/items/a",
+      "selector": ".price",
+      "threshold": 3000
+    },
+    {
+      "name": "サンプル商品B",
+      "url": "https://example.com/items/b",
+      "selector": "#item-price span"
+    }
+  ]
+}
