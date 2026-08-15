@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import unicodedata
 from pathlib import Path
 from typing import Iterable
 
@@ -18,6 +19,15 @@ HEADER_FONT = Font(color="FFFFFF", bold=True)
 BELOW_THRESHOLD_FILL = PatternFill("solid", fgColor="C6EFCE")
 ERROR_FILL = PatternFill("solid", fgColor="FFC7CE")
 PRICE_FORMAT = "#,##0"
+
+
+def _display_width(text: str) -> int:
+    """全角文字を幅2と数えた表示幅。商品名の列が切れるのを防ぐために使う。"""
+    return sum(2 if unicodedata.east_asian_width(char) in "WF" else 1 for char in text)
+
+
+def _format_timestamp(checked_at: str) -> str:
+    return checked_at.replace("T", " ")[:16]
 
 
 def _sorted_names(records: Iterable[PriceRecord]) -> list[str]:
@@ -38,7 +48,9 @@ def _style_header(sheet: Worksheet) -> None:
 
 def _autosize(sheet: Worksheet, min_width: int = 10, max_width: int = 60) -> None:
     for column in sheet.columns:
-        length = max((len(str(cell.value)) for cell in column if cell.value is not None), default=0)
+        length = max(
+            (_display_width(str(cell.value)) for cell in column if cell.value is not None), default=0
+        )
         letter = get_column_letter(column[0].column)
         sheet.column_dimensions[letter].width = min(max(length + 2, min_width), max_width)
 
@@ -51,7 +63,7 @@ def _write_trend_sheet(sheet: Worksheet, records: list[PriceRecord], names: list
 
     for checked_at in sorted(by_timestamp):
         prices = by_timestamp[checked_at]
-        sheet.append([checked_at, *(prices.get(name) for name in names)])
+        sheet.append([_format_timestamp(checked_at), *(prices.get(name) for name in names)])
 
     for row in sheet.iter_rows(min_row=2, min_col=2):
         for cell in row:
@@ -79,7 +91,7 @@ def _write_trend_sheet(sheet: Worksheet, records: list[PriceRecord], names: list
 def _write_history_sheet(sheet: Worksheet, records: list[PriceRecord]) -> None:
     sheet.append(["取得日時", "商品名", "URL", "価格", "備考"])
     for record in records:
-        sheet.append(record.to_row())
+        sheet.append([_format_timestamp(record.checked_at), record.name, record.url, record.price, record.note])
         row = sheet[sheet.max_row]
         row[3].number_format = PRICE_FORMAT
         if record.price is None:
