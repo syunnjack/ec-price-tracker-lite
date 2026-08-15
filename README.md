@@ -110,6 +110,31 @@ Windowsのタスクスケジューラや cron に登録すれば、定期実行�
 対象サイトの利用規約・robots.txt を確認し、過度なリクエストを行わないようにしてください。
 本スクリプトは学習・検証用のサンプルです。
 
+## 技術解説記事（Zenn）
+
+Zennの記事はこのリポジトリで管理しています（GitHub連携／zenn-connect）。`main` にpushすると記事が反映されます。
+
+```text
+articles/ec-price-tracker-lite.md     記事本文
+images/ec-price-tracker-lite/         記事に貼る画像
+```
+
+初回のみ、Zenn側で連携を有効にします。
+
+1. https://zenn.dev/dashboard/deploys で「リポジトリを連携する」
+2. GitHubアプリのインストール先で `syunnjack/ec-price-tracker-lite` を許可
+3. 連携するブランチを `main`、記事のルートをリポジトリ直下（デフォルト）に設定
+
+公開・非公開は記事のフロントマターで切り替えます（`published: true` にしてpushすると公開）。
+
+ローカルでプレビューする場合:
+
+```bash
+npm install
+npm run preview        # http://localhost:8000 で表示を確認
+npm run new:article    # 新しい記事のひな形を作る
+```
+
 ## 導入手順の詳細解説（Brain）
 
 「非エンジニアのメンバーにも使ってもらう」ところまで含めた導入手順・運用のコツを記事にまとめています。
