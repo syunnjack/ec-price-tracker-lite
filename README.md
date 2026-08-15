@@ -112,20 +112,16 @@ Windowsのタスクスケジューラや cron に登録すれば、定期実行�
 
 ## 技術解説記事（Zenn）
 
-Zennの記事はこのリポジトリで管理しています（GitHub連携／zenn-connect）。`main` にpushすると記事が反映されます。
+公開記事: https://zenn.dev/chitamaru/articles/ec-price-tracker-lite
+
+記事本文は Zenn の連携先リポジトリ `syunnjack/zenn-content` で管理しています（Zennは1アカウント1リポジトリ連携）。このリポジトリの `articles/` は同内容の控えです。
 
 ```text
 articles/ec-price-tracker-lite.md     記事本文
 images/ec-price-tracker-lite/         記事に貼る画像
 ```
 
-初回のみ、Zenn側で連携を有効にします。
-
-1. https://zenn.dev/dashboard/deploys で「リポジトリを連携する」
-2. GitHubアプリのインストール先で `syunnjack/ec-price-tracker-lite` を許可
-3. 連携するブランチを `main`、記事のルートをリポジトリ直下（デフォルト）に設定
-
-公開・非公開は記事のフロントマターで切り替えます（`published: true` にしてpushすると公開）。
+公開・非公開は記事のフロントマターで切り替えます（`published: true` にして連携先リポジトリの `main` にpushすると公開）。
 
 ローカルでプレビューする場合:
 
@@ -139,19 +135,26 @@ npm run new:article    # 新しい記事のひな形を作る
 
 「非エンジニアのメンバーにも使ってもらう」ところまで含めた導入手順・運用のコツを記事にまとめています。
 
-- Brain: 毎朝30分の「価格チェック」を1分にした話｜非エンジニアでも使える業務自動化の作り方 — 〔Brain記事URLをここに記載〕
+- Brain: [毎朝30分の「価格チェック」を1分にした話｜非エンジニアでも使える業務自動化の作り方](https://brain-market.com/u/chitamaru/a/byMzMxYjMgoTZsNWa0JXY)
+- note: [導入の背景と費用対効果](https://note.com/chitamaru/n/n645cbb9768f1)
 
 ## GUI版・Excelレポート版の配布（BOOTH）
 
-コマンド操作なしで使えるWindows向けGUI版（.exe）と、集計済みExcelレポートのテンプレートをBOOTHで配布しています。
+コマンド操作なしで使えるGUI版や、導入・運用の資料をBOOTHで配布しています。
 
-- BOOTH: 〔BOOTH商品ページURLをここに記載〕
+| 商品 | 価格 | リンク |
+| --- | --- | --- |
+| Excelテンプレート集（監視対象テンプレート＋レポート見本） | 無料 | https://wangan-base.booth.pm/items/8720572 |
+| CSSセレクタ調査ガイド＋導入チェックシート（PDF） | 無料 | https://wangan-base.booth.pm/items/8720637 |
+| CLI版（自動実行bat・手順書つき） | ¥500 | https://wangan-base.booth.pm/items/8720631 |
+| 導入・運用ガイド（PDF全11章） | ¥1,000 | https://wangan-base.booth.pm/items/8720621 |
+| GUI版本体（GUI＋CLI・ソース同梱） | ¥2,500 | https://wangan-base.booth.pm/items/8714957 |
 
 ## 個別カスタマイズのご相談（ココナラ）
 
 「対象サイトを追加したい」「Slack/メール通知を付けたい」「社内システムと連携したい」といった個別要件は、ココナラでオーダーメイド対応しています。
 
-- ココナラ: 〔ココナラ出品ページURLをここに記載〕
+- ココナラ: https://coconala.com/services/2561235
 
 ## ライセンス
 
