@@ -17,6 +17,9 @@ import sys
 import zipfile
 from pathlib import Path
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(errors="replace")
+
 ROOT = Path(__file__).resolve().parent.parent
 DIST = ROOT / "dist"
 STAGE = ROOT / "build" / "release"
@@ -29,13 +32,13 @@ sys.path.insert(0, str(ROOT))
 from excel_template import build_template  # noqa: E402
 
 
-def build_exe() -> Path:
+def build_app() -> Path:
     subprocess.run(
         [
             sys.executable,
             "-m",
             "PyInstaller",
-            "--onefile",
+            "--noconfirm",
             "--windowed",
             "--name",
             APP_NAME,
@@ -44,31 +47,29 @@ def build_exe() -> Path:
         cwd=ROOT,
         check=True,
     )
-    exe = DIST / f"{APP_NAME}.exe"
-    return exe if exe.exists() else DIST / APP_NAME
+    return DIST / APP_NAME
 
 
-def stage_files(exe: Path | None) -> list[Path]:
+def stage_files(app_dir: Path | None) -> Path:
     if STAGE.exists():
         shutil.rmtree(STAGE)
     STAGE.mkdir(parents=True)
 
-    files = [
-        shutil.copy2(ROOT / "packaging" / "README.txt", STAGE / "README.txt"),
-        shutil.copy2(ROOT / "targets.example.json", STAGE / "targets.example.json"),
-        build_template(STAGE / TEMPLATE_NAME),
-    ]
-    if exe is not None:
-        files.append(shutil.copy2(exe, STAGE / exe.name))
-    return [Path(path) for path in files]
+    shutil.copy2(ROOT / "packaging" / "README.txt", STAGE / "README.txt")
+    shutil.copy2(ROOT / "targets.example.json", STAGE / "targets.example.json")
+    build_template(STAGE / TEMPLATE_NAME)
+    if app_dir is not None:
+        shutil.copytree(app_dir, STAGE, dirs_exist_ok=True)
+    return STAGE
 
 
-def make_zip(files: list[Path]) -> Path:
+def make_zip(stage: Path) -> Path:
     DIST.mkdir(exist_ok=True)
     archive = DIST / ZIP_NAME
     with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED) as zf:
-        for path in files:
-            zf.write(path, path.name)
+        for path in sorted(stage.rglob("*")):
+            if path.is_file():
+                zf.write(path, path.relative_to(stage).as_posix())
     return archive
 
 
@@ -77,10 +78,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--skip-exe", action="store_true", help="PyInstallerを実行せず同梱ファイルのみZip化")
     args = parser.parse_args(argv)
 
-    exe = None if args.skip_exe else build_exe()
-    archive = make_zip(stage_files(exe))
+    app_dir = None if args.skip_exe else build_app()
+    archive = make_zip(stage_files(app_dir))
     print(f"{archive} を作成しました。")
-    if exe is None:
+    if app_dir is None:
         print("exeは含まれていません。Windows上で --skip-exe なしで実行してください。")
     return 0
 
