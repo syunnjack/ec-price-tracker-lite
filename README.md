@@ -10,6 +10,7 @@ ECサイトの商品ページから価格を取得し、CSVに履歴を蓄積す
 - 取得結果を `history.csv` に追記（Excelでそのまま開けるUTF-8 BOM付き）
 - 目標価格を設定すると、下回った行に注記を付与
 - 価格推移グラフ付きのExcelレポート（.xlsx）を出力
+- 監視対象をExcelテンプレートで書いて設定ファイルに変換
 - GUI（コマンド操作なし）でも同じ操作が可能
 
 ## セットアップ
@@ -53,6 +54,15 @@ python main.py --config targets.json --output history.csv --report price_report.
 python -c "from pathlib import Path; from report import build_report; build_report(Path('history.csv'), Path('price_report.xlsx'))"
 ```
 
+### Excelテンプレートで監視対象を管理
+
+JSONを直接編集したくない場合は、Excelに一覧で書いてから設定ファイルに変換できます。
+
+```bash
+python main.py --make-excel-template 監視対象テンプレート.xlsx  # 記入例付きのテンプレートを作成
+python main.py --from-excel 監視対象テンプレート.xlsx --config targets.json  # 記入内容をJSONに変換
+```
+
 ## GUI版
 
 コマンド操作をしたくない場合や、非エンジニアのメンバーに渡す場合はGUIを使います。
@@ -77,6 +87,12 @@ pyinstaller --onefile --windowed --name ec-price-tracker gui.py
 ```
 
 `dist/ec-price-tracker.exe` が生成されます。`targets.json` と `history.csv` は実行時のカレントディレクトリに作られるため、exeと同じフォルダに置いて運用してください。
+
+配布用のZip（exe・利用者向けREADME.txt・Excelテンプレート・設定例）はWindows上で次を実行するとまとめて作成できます。
+
+```bash
+python packaging/build_release.py  # dist/ec-price-tracker-gui.zip を作成（--skip-exe でexe抜きの確認も可能）
+```
 
 ### 設定ファイル
 

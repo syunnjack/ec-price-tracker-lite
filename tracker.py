@@ -5,6 +5,7 @@ from __future__ import annotations
 import csv
 import json
 import re
+import time
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
@@ -15,6 +16,7 @@ from bs4 import BeautifulSoup
 
 USER_AGENT = "ec-price-tracker-lite/0.1 (+https://github.com/syunnjack/ec-price-tracker-lite)"
 REQUEST_TIMEOUT = 15
+REQUEST_INTERVAL = 1.0
 CSV_HEADER = ["checked_at", "name", "url", "price", "note"]
 CSV_ENCODING = "utf-8-sig"
 PRICE_PATTERN = re.compile(r"\d[\d,]*")
@@ -100,8 +102,14 @@ def fetch_price(target: Target, session: requests.Session) -> PriceRecord:
 
 
 def fetch_all(targets: Iterable[Target]) -> list[PriceRecord]:
+    """対象サイトに連続で負荷をかけないよう、1件ごとに間隔を空けて取得する。"""
+    records: list[PriceRecord] = []
     with create_session() as session:
-        return [fetch_price(target, session) for target in targets]
+        for index, target in enumerate(targets):
+            if index:
+                time.sleep(REQUEST_INTERVAL)
+            records.append(fetch_price(target, session))
+    return records
 
 
 def append_records(records: Iterable[PriceRecord], output: Path) -> None:

@@ -9,8 +9,9 @@ from __future__ import annotations
 import threading
 import tkinter as tk
 from pathlib import Path
-from tkinter import messagebox, simpledialog, ttk
+from tkinter import filedialog, messagebox, simpledialog, ttk
 
+from excel_template import load_targets_from_excel
 from report import build_report
 from tracker import PriceRecord, Target, append_records, fetch_all, load_targets, save_targets
 
@@ -87,6 +88,7 @@ class App(ttk.Frame):
             ("監視対象を追加", self.add_target),
             ("監視対象を編集", self.edit_target),
             ("削除", self.delete_target),
+            ("Excelから読込", self.import_from_excel),
             ("今すぐ取得", self.fetch_now),
             ("Excelに出力", self.export_report),
         )
@@ -203,6 +205,31 @@ class App(ttk.Frame):
         self._save_config()
         self._refresh_tree()
         self.status.set(f"「{target.name}」を削除しました。")
+
+    def import_from_excel(self) -> None:
+        path = filedialog.askopenfilename(
+            title="監視対象テンプレートを選択",
+            filetypes=[("Excelファイル", "*.xlsx"), ("すべて", "*.*")],
+        )
+        if not path:
+            return
+        try:
+            targets = load_targets_from_excel(Path(path))
+        except (OSError, ValueError, KeyError) as exc:
+            messagebox.showerror("読み込みエラー", f"Excelを読み込めません:\n{exc}")
+            return
+        if not targets:
+            messagebox.showinfo("対象なし", "「監視対象」シートに商品名・URL・セレクタが記入されていません。")
+            return
+        if self.targets and not messagebox.askyesno(
+            "入れ替えの確認", f"現在の{len(self.targets)}件を、Excelの{len(targets)}件で置き換えますか？"
+        ):
+            return
+        self.targets = targets
+        self.latest.clear()
+        self._save_config()
+        self._refresh_tree()
+        self.status.set(f"Excelから{len(targets)}件を読み込み、{CONFIG_PATH} に保存しました。")
 
     def fetch_now(self) -> None:
         if not self.targets:
