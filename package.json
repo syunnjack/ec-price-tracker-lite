@@ -1,0 +1,12 @@
+{
+  "name": "ec-price-tracker-lite-zenn",
+  "private": true,
+  "description": "Zenn articles for ec-price-tracker-lite",
+  "scripts": {
+    "preview": "zenn preview",
+    "new:article": "zenn new:article"
+  },
+  "devDependencies": {
+    "zenn-cli": "^0.5.2"
+  }
+}
