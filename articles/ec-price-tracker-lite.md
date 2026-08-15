@@ -177,7 +177,8 @@ with requests.Session() as session:
 
 コードが動くのと、現場の非エンジニアメンバーが毎日使えるのとは別問題です。実際に毎朝30分かかっていた価格チェックを1分にするまでにやったこと（導入の進め方、依存の少ない配布方法、セレクタが壊れたときの運用フロー）は、こちらの記事にまとめています。
 
-- Brain: 毎朝30分の「価格チェック」を1分にした話｜非エンジニアでも使える業務自動化の作り方 — 〔Brain記事URLをここに記載〕
+- Brain: [毎朝30分の「価格チェック」を1分にした話｜非エンジニアでも使える業務自動化の作り方](https://brain-market.com/u/chitamaru/a/byMzMxYjMgoTZsNWa0JXY)
+- note: [導入の背景と費用対効果](https://note.com/chitamaru/n/n645cbb9768f1)
 
 ## GUI版とExcelレポート版
 
@@ -193,13 +194,17 @@ GUI版は監視対象の追加・編集をウィンドウ内で行い、目標�
 
 ![Excelレポートの取得履歴シート](/images/ec-price-tracker-lite/excel-log.png)
 
-- BOOTH: 〔BOOTH商品ページURLをここに記載〕
+- Excelテンプレート集（無料）: https://wangan-base.booth.pm/items/8720572
+- CSSセレクタ調査ガイド＋導入チェックシート（無料・PDF）: https://wangan-base.booth.pm/items/8720637
+- CLI版（自動実行bat・手順書つき）: https://wangan-base.booth.pm/items/8720631
+- 導入・運用ガイド（PDF全11章）: https://wangan-base.booth.pm/items/8720621
+- GUI版本体（GUI＋CLI・ソース同梱）: https://wangan-base.booth.pm/items/8714957
 
 ## 個別カスタマイズの相談
 
 「対象サイトを追加したい」「在庫状況も一緒に取りたい」「Slackやメールに通知したい」「社内の基幹システムに取り込みたい」といった個別要件は、オーダーメイドで対応しています。
 
-- ココナラ: 〔ココナラ出品ページURLをここに記載〕
+- ご相談はこちら: https://coconala.com/services/2561235
 
 ## まとめ
 
