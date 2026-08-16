@@ -110,6 +110,12 @@ Windowsのタスクスケジューラや cron に登録すれば、定期実行�
 対象サイトの利用規約・robots.txt を確認し、過度なリクエストを行わないようにしてください。
 本スクリプトは学習・検証用のサンプルです。
 
+## 操作解説動画（YouTube・限定公開）
+
+URL登録から価格収集、Excelレポート出力までの操作を通しで収録しています。
+
+- https://youtu.be/LCPi8uLWCLM
+
 ## 技術解説記事（Zenn）
 
 公開記事: https://zenn.dev/chitamaru/articles/ec-price-tracker-lite
