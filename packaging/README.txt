@@ -4,9 +4,12 @@ EC価格チェック自動化ツール（GUI版）
 
 ■ 同梱物
   ec-price-tracker.exe          ツール本体（Windows専用・Pythonのインストール不要）
+  _internal                     本体が使う実行ファイル群（削除・移動しないでください）
   監視対象テンプレート.xlsx      監視したい商品を一覧で書くためのExcelテンプレート
   targets.example.json          設定ファイルの記入例
   README.txt                    このファイル
+
+  ※ Zipは必ずフォルダごと解凍し、exeと_internalを同じ場所に置いたまま使ってください。
 
 ■ 使い方（最短手順）
   1. ec-price-tracker.exe をダブルクリックします。
@@ -48,12 +51,12 @@ EC価格チェック自動化ツール（GUI版）
   〔操作解説動画URL〕
 
 ■ カスタマイズのご相談（対象サイト追加・在庫取得・Slack通知・基幹連携など）
-  ココナラ: 〔ココナラ出品ページURL〕
+  ココナラ: https://coconala.com/services/2561235
 
 ■ 関連記事
-  導入から運用まで（note）: 〔note記事URL〕
-  非エンジニア向けの進め方（Brain）: 〔Brain記事URL〕
-  技術解説（Zenn）: 〔Zenn記事URL〕
+  導入から運用まで（note）: https://note.com/chitamaru/n/n645cbb9768f1
+  非エンジニア向けの進め方（Brain）: https://brain-market.com/u/chitamaru/a/byMzMxYjMgoTZsNWa0JXY
+  技術解説（Zenn）: https://zenn.dev/chitamaru/articles/ec-price-tracker-lite
 
 ■ 無料版（コマンド版・ソースコード）
   https://github.com/syunnjack/ec-price-tracker-lite
