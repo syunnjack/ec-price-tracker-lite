@@ -156,6 +156,12 @@ npm run new:article    # 新しい記事のひな形を作る
 | 導入・運用ガイド（PDF全11章） | ¥1,000 | https://wangan-base.booth.pm/items/8720621 |
 | GUI版本体（GUI＋CLI・ソース同梱） | ¥2,500 | https://wangan-base.booth.pm/items/8714957 |
 
+## オフライン完結版（DLsite）
+
+通信なしでExcelだけで価格記録・買い時判定ができるテンプレート集（全5点＋運用ガイドPDF）をDLsiteで販売しています。
+
+- EC価格監視 Excelテンプレート集（オフライン完結・全5点＋運用ガイドPDF） ¥1,100: https://www.dlsite.com/home/work/=/product_id/RJ01697982.html
+
 ## 個別カスタマイズのご相談（ココナラ）
 
 「対象サイトを追加したい」「Slack/メール通知を付けたい」「社内システムと連携したい」といった個別要件は、ココナラでオーダーメイド対応しています。
